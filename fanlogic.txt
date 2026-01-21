@@ -1,0 +1,22 @@
+
+Fan logic: 
+
+temp_tolerance_eval: 
+	actual_temp
+	min_target_temp
+	max_target_temp
+	
+	if(actual_temp > min_target_temp && actual_temp < max_target_temp):
+		return true
+		print("In target; Do nothing") 
+	elif(actual_temp > max_target_temp):
+		turn_fan_on(3000)
+
+Humidity_tolerance_eval: 
+	actual_humidity
+	target_humidity
+	if(actual_humidity > min_target_humidity && actual_humidity < max_target_humidity):
+		print("In target; Do nothing") 
+	elif(actual_humidity > target_humidity):
+		diff(actual_temp - max_temp > 5): 
+			turn_fan_on(3000)
