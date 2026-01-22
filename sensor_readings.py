@@ -7,13 +7,15 @@ dht = adafruit_dht.DHT11(board.D4)
 
 print("DHT11 sensor test starting... Press CTRL+C to exit.")
 
-while True:
+for i in range (0:10):
     try:
         temperature_c = dht.temperature
         humidity = dht.humidity
 
         if temperature_c is not None and humidity is not None:
-            print(f"Temperature: {temperature_c:.1f}°C   Humidity: {humidity:.1f}%")
+            temperature_f = (temperature_c * 9 / 5) + 32
+            print(f"Temperature: {temperature_c:.1f}°F   Humidity: {humidity:.1f}%")
+            i++
         else:
             print("Sensor returned None values")
 
@@ -21,4 +23,4 @@ while True:
         # DHT sensors often error — this is normal
         print("Retrying...", error)
 
-    time.sleep(2)
+    time.sleep(1)
