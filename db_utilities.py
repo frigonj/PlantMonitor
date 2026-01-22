@@ -31,7 +31,7 @@ def update_plant_state(new_state):
 def get_current_state():
     """Retrieves the saved plant state."""
     with sqlite3.connect(DB_FILE) as conn:
-        result = conn.execute("SELECT value FROM settings WHERE key = 'plant_state'")
+        result = conn.execute("SELECT value FROM settings WHERE key = 'plant_state'").fetchone()
         return result if result else "No Result was found"
 
 def add_reading(temp, humidity, soil_moisture):
