@@ -26,17 +26,18 @@ def get_color(val, target_range):
 def index():
     current_state = db.get_current_state()
     print("*****current_state***** " + str(current_state))
-    targets = STATE_TARGETS[current_state]
+    print(current_state)
+    # targets = STATE_TARGETS[current_state]
     
-    # Example 'actual' readings (Replace with real sensor calls)
-    actual = {"temp": 78, "hum": 65, "soil": 45} 
+    # # Example 'actual' readings (Replace with real sensor calls)
+    # actual = {"temp": 78, "hum": 65, "soil": 45} 
     
-    # Evaluate Fan Logic [4]
-    fan_needed = False
-    if actual['temp'] > targets['temp'][1]: # actual_temp > max_target_temp
-        fan_needed = True
-    elif actual['hum'] > targets['hum'][1] and (actual['temp'] - targets['temp'][1] > 5):
-        fan_needed = True
+    # # Evaluate Fan Logic [4]
+    # fan_needed = False
+    # if actual['temp'] > targets['temp'][1]: # actual_temp > max_target_temp
+    #     fan_needed = True
+    # elif actual['hum'] > targets['hum'][1] and (actual['temp'] - targets['temp'][1] > 5):
+    #     fan_needed = True
 
     return render_template('index.html', 
                state=current_state,
