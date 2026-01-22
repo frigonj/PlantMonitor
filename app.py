@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect
 import db_utilities as db
+import sensor_readings as sens
 
 app = Flask(__name__)
 
@@ -27,9 +28,11 @@ def index():
     current_state = db.get_current_state()
     print("*****current_state***** " + str(current_state[0]))
     targets = STATE_TARGETS[current_state[0]]
+    temp = sens.get_temp_hum()["temperature"]
+    hum = sens.get_temp_hum()["humidity"]
     
     # # Example 'actual' readings (Replace with real sensor calls)
-    actual = {"temp": 78, "hum": 65, "soil": 45} 
+    actual = {"temp": temp, "hum": hum, "soil": 45} 
     
     # Evaluate Fan Logic [4]
     fan_needed = False
@@ -54,4 +57,5 @@ def set_state():
 
 if __name__ == '__main__':
     db.init_db()
+    sens.init_sens()
     app.run(host='0.0.0.0', port=5000)
