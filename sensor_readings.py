@@ -8,9 +8,9 @@ import soil_moisture as sm
 dht = adafruit_dht.DHT11(board.D4)
 
 
-print("Pulling sensor Readings...")
 
 def init_sens():
+    print("Pulling sensor Readings...")
     temperatures = []
     humidities = []
     for i in range (11):
@@ -21,6 +21,7 @@ def init_sens():
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
                 humidities.append(humidity)
+                print(f"Percent complete: {i/11}%", end='')
                 i+=1
         except: 
             pass
@@ -31,6 +32,7 @@ def init_sens():
     print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
 
 def get_temp_hum(): 
+    print("Pulling sensor Readings...")
     temperatures = []
     humidities = []
     for i in range (11):
@@ -40,7 +42,8 @@ def get_temp_hum():
             if temperature_c is not None and humidity is not None:
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
-                humidities.append(humidity)        
+                humidities.append(humidity) 
+                print(f"Percent complete: {i/11}%", end='')       
                 i+=1
         except:
             pass
@@ -50,7 +53,7 @@ def get_temp_hum():
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
     print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
-    return {temperature:avg_temp, humidity:avg_hum}
+    return {"temperature":avg_temp, "humidity":avg_hum}
 
 # TODO: Add in soil moisture to this.
 

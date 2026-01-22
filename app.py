@@ -28,8 +28,10 @@ def index():
     current_state = db.get_current_state()
     print("*****current_state***** " + str(current_state[0]))
     targets = STATE_TARGETS[current_state[0]]
-    temp = sens.get_temp_hum()["temperature"]
-    hum = sens.get_temp_hum()["humidity"]
+    sensor_data = sens.get_temp_hum()
+
+    temp = sensor_data["temperature"]
+    hum = sensor_data["humidity"]
     
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"temp": temp, "hum": hum, "soil": 45} 
