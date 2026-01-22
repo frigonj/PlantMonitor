@@ -8,14 +8,15 @@ import soil_moisture as sm
 dht = adafruit_dht.DHT11(board.D4)
 
 
-print("DHT11 sensor test starting... Press CTRL+C to exit.")
+print("Pulling sensor Readings...")
 
 def init_sens():
+    temperatures = []
+    humidities = []
     for i in range (11):
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
-
             if temperature_c is not None and humidity is not None:
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
