@@ -1,6 +1,7 @@
 import time
 import board
 import adafruit_dht
+import db_utilities as db
 
 # Initialize DHT11 sensor on GPIO4 (physical pin 7)
 dht = adafruit_dht.DHT11(board.D4)
@@ -32,4 +33,6 @@ for i in range (11):
     time.sleep(1)
 avg_temp = sum(temperatures) / len(temperatures)
 avg_hum = sum(humidities) / len(humidities)
+
+db.add_reading(avg_temp, avg_hum, 55)
 print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
