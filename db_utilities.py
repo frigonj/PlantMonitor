@@ -11,7 +11,7 @@ def init_db():
                         (id INTEGER PRIMARY KEY AUTOINCREMENT, 
                          timestamp DATETIME, 
                          temp REAL, 
-                         humidity REAL, 
+                         hum REAL, 
                          soil_moisture REAL)''')
         
         # Table for persistent app settings (e.g., current Plant State)
@@ -34,11 +34,11 @@ def get_current_state():
         result = conn.execute("SELECT value FROM settings WHERE key = 'plant_state'").fetchone()
         return result if result else "No Result was found"
 
-def add_reading(temp, humidity, soil_moisture):
+def add_reading(temp, hum, soil_moisture):
     """Logs new sensor data with a timestamp."""
     with sqlite3.connect(DB_FILE) as conn:
-        conn.execute("INSERT INTO readings (timestamp, temp, humidity, soil_moisture) VALUES (?, ?, ?, ?)",
-                     (datetime.now(), temp, humidity, soil_moisture))
+        conn.execute("INSERT INTO readings (timestamp, temp, hum, soil_moisture) VALUES (?, ?, ?, ?)",
+                     (datetime.now(), temp, hum, soil_moisture))
         conn.commit()
 
 def cleanup_old_data():
