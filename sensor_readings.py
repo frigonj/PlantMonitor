@@ -4,7 +4,8 @@ import adafruit_dht
 
 # Initialize DHT11 sensor on GPIO4 (physical pin 7)
 dht = adafruit_dht.DHT11(board.D4)
-temperatures, humidities = []
+temperatures = []
+humidities = []
 
 print("DHT11 sensor test starting... Press CTRL+C to exit.")
 
