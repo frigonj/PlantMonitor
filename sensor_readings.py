@@ -15,7 +15,7 @@ for i in range (11):
         if temperature_c is not None and humidity is not None:
             temperature_f = (temperature_c * 9 / 5) + 32
             print(f"Temperature: {temperature_c:.1f}°F   Humidity: {humidity:.1f}%")
-            i++
+            i+=1
         else:
             print("Sensor returned None values")
 
