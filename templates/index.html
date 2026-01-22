@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>Plant Monitor</title>
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+    <h2>Plant Monitor: {{ state }}</h2>
+    
+    <!-- State Dropdown -->
+    <form action="/set_state" method="post" class="mb-4">
+        <select name="plant_state" onchange="this.form.submit()" class="form-select">
+            {% for s in ["Seedling", "Vegetation", "Flowering", "Late Flowering"] %}
+            <option value="{{ s }}" {% if s == state %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Status Widgets -->
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card text-white bg-{{ temp_color }}">
+                <div class="card-body">
+                    <h5 class="card-title">Temperature</h5>
+                    <p class="display-6">{{ actual.temp }}°F</p>
+                    <small>Target: {{ targets.temp }}-{{ targets.temp[1] }}°F</small>
+                </div>
+            </div>
+        </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card text-white bg-{{ temp_color }}">
+                <div class="card-body">
+                    <h5 class="card-title">Humidity</h5>
+                    <p class="display-6">{{ actual.humidity }}°F</p>
+                    <small>Target: {{ targets.humidity }}-{{ targets.humidity[1] }}%</small>
+                </div>
+            </div>
+        </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card text-white bg-{{ temp_color }}">
+                <div class="card-body">
+                    <h5 class="card-title">Soil Moisture</h5>
+                    <p class="display-6">{{ actual.soil }}°F</p>
+                    <small>Target: {{ targets.soil }}-{{ targets.soil[1] }}%</small>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat structure for Humidity and Soil Moisture -->
+    </div>
+</div>
+</body>
+</html>
