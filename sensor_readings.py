@@ -14,7 +14,6 @@ def init_sens():
     temperatures = []
     humidities = []
     for i in range (11):
-        print(f"Percent complete: {i/11}%", end='')
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
@@ -25,7 +24,7 @@ def init_sens():
                 i+=1
         except: 
             pass
-        time.sleep(1)
+        time.sleep(.1)
     avg_temp = sum(temperatures) / len(temperatures)
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
@@ -47,7 +46,7 @@ def get_temp_hum():
                 i+=1
         except:
             pass
-        time.sleep(.5)
+        time.sleep(.1)
 
     avg_temp = sum(temperatures) / len(temperatures)
     avg_hum = sum(humidities) / len(humidities)
