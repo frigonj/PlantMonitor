@@ -7,7 +7,7 @@ dht = adafruit_dht.DHT11(board.D4)
 
 print("DHT11 sensor test starting... Press CTRL+C to exit.")
 
-for i in range (0:10):
+for i in range (11):
     try:
         temperature_c = dht.temperature
         humidity = dht.humidity
