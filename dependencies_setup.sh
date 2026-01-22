@@ -3,6 +3,12 @@
 # 1. Update system packages
 sudo apt update && sudo apt upgrade -y
 
+# install git
+sudo apt install git -y
+
+#install micro text editor
+sudo apt install micro
+
 # 2. Install Python 3, Pip, and SQLite3 CLI
 sudo apt install python3 python3-pip python3-venv sqlite3 -y
 
