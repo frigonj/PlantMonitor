@@ -40,6 +40,8 @@ def get_temp_hum():
                 temperatures.append(temperature_f)
                 humidities.append(humidity)        
                 i+=1
+        except:
+            pass
         time.sleep(.5)
 
     avg_temp = sum(temperatures) / len(temperatures)
