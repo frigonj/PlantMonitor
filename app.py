@@ -30,8 +30,10 @@ def index():
     targets = STATE_TARGETS[current_state[0]]
     sensor_data = sens.get_temp_hum()
 
-    temp = sensor_data["temperature"].round(1)
-    hum = sensor_data["humidity"].round(1)
+    temp = sensor_data["temperature"]
+    temp = round(temp, 1)
+    hum = sensor_data["humidity"]
+    hum = round(hum, 1)
     
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"temp": temp, "hum": hum, "soil": 45} 
