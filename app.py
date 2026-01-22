@@ -1,24 +1,15 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect
-import database_manager as db # Using the tools we created earlier
-
+import db_utilities as db
 
 app = Flask(__name__)
 
 # Target mapping based on sources [1-3]
 STATE_TARGETS = {
-    "Seedling": {
-        "temp": (70, 85), "hum": (70, 80), "soil": (65, 70)
-    },
-    "Vegetation": {
-        "temp": (70, 85), "hum": (55, 70), "soil": (40, 70)
-    },
-    "Flowering": {
-        "temp": (65, 80), "hum": (40, 60), "soil": (40, 50)
-    },
-    "Late Flowering": {
-        "temp": (65, 80), "hum": (40, 60), "soil": (30, 40)
-    }
+    "Seedling": { "temp": (70, 85), "hum": (70, 80), "soil": (65, 70)},
+    "Vegetation": { "temp": (70, 85), "hum": (55, 70), "soil": (40, 70)},
+    "Flowering": { "temp": (65, 80), "hum": (40, 60), "soil": (40, 50)},
+    "Late Flowering": { "temp": (65, 80), "hum": (40, 60), "soil": (30, 40)}
 }
 
 def get_color(val, target_range):
@@ -59,27 +50,6 @@ def index():
 def set_state():
     db.update_plant_state(request.form['plant_state'])
     return redirect('/')
-
-DB_FILE = "plant_monitor.db"
-
-def init_db():
-    """Initializes the database schema."""
-    with sqlite3.connect(DB_FILE) as conn:
-        # Table for historical readings
-        conn.execute('''CREATE TABLE IF NOT EXISTS readings 
-                        (id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                         timestamp DATETIME, 
-                         temp REAL, 
-                         humidity REAL, 
-                         soil_moisture REAL)''')
-        
-        # Table for persistent app settings (e.g., current Plant State)
-        conn.execute('''CREATE TABLE IF NOT EXISTS settings 
-                        (key TEXT PRIMARY KEY, value TEXT)''')
-        
-        # Default state: Seedling [1]
-        conn.execute("INSERT OR IGNORE INTO settings (key, value) VALUES ('plant_state', 'Seedling')")
-        conn.commit()
 
 if __name__ == '__main__':
     db.init_db()
