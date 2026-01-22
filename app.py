@@ -26,7 +26,6 @@ def get_color(val, target_range):
 def index():
     current_state = db.get_current_state()
     print("*****current_state***** " + str(current_state[0]))
-    print(current_state)
     targets = STATE_TARGETS[current_state[0]]
     
     # # Example 'actual' readings (Replace with real sensor calls)
@@ -40,7 +39,7 @@ def index():
     #     fan_needed = True
 
     return render_template('index.html', 
-               state=current_state,
+               state=current_state[0],
                actual=actual,
                targets=targets,
                temp_color=get_color(actual['temp'], targets['temp']),
