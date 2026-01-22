@@ -21,7 +21,8 @@ def init_sens():
                 temperatures.append(temperature_f)
                 humidities.append(humidity)
                 i+=1
-
+        except: 
+            pass
         time.sleep(1)
     avg_temp = sum(temperatures) / len(temperatures)
     avg_hum = sum(humidities) / len(humidities)
