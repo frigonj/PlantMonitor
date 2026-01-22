@@ -25,6 +25,7 @@ def get_color(val, target_range):
 @app.route('/')
 def index():
     current_state = db.get_current_state()
+    print("*****current_state***** " + str(current_state))
     targets = STATE_TARGETS[current_state]
     
     # Example 'actual' readings (Replace with real sensor calls)
