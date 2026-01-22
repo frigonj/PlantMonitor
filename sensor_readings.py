@@ -14,6 +14,7 @@ def init_sens():
     temperatures = []
     humidities = []
     for i in range (11):
+        print(f"Percent complete: {i/11}%", end='')
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
@@ -21,7 +22,6 @@ def init_sens():
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
                 humidities.append(humidity)
-                print(f"Percent complete: {i/11}%", end='')
                 i+=1
         except: 
             pass
