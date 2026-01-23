@@ -7,13 +7,21 @@ import db_utilities as db
 import soil_moisture as sm
 
 # Initialize DHT11 sensor on GPIO4 (physical pin 7)
-dht = adafruit_dht.DHT11(board.D4)
+def safe_init_dht():
+    while True:
+        try:
+            dht = adafruit_dht.DHT11(board.D4)
+            return dht
+        except RuntimeError as e:
+            print("Failed to initialize DHT, retrying:", e)
+            time.sleep(2)
 
 def init_sens():
     print("Pulling sensor Readings...", flush=True)
     temperatures = []
     humidities = []
     target_samples = 10
+    dht = safe_init_dht()
     try:
         while len(temperatures) < target_samples:
             try:
@@ -27,7 +35,7 @@ def init_sens():
                     print(f"Percent complete: {percent:.1f}%", end="\r", flush=True)
             except: 
                 pass
-            time.sleep(.2)
+            time.sleep(.4)
         avg_temp = sum(temperatures) / len(temperatures)
         avg_hum = sum(humidities) / len(humidities)
         db.add_reading(avg_temp, avg_hum, 55)
