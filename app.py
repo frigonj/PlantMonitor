@@ -63,13 +63,13 @@ def set_state():
 
 @app.route("/")
 def manual_update():
-    sens.init_sens()
+    with lock:
+            sens.init_sens()
     return redirect("/")
 
 if __name__ == '__main__':
     db.init_db()
     db.get_reading()
-    threading.Thread(target=sens.init_sens, daemon=True).start()
     app.run(host='0.0.0.0', port=5000)
     
     
