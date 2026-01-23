@@ -5,6 +5,9 @@ import threading
 from flask import Flask, render_template, request, redirect
 import db_utilities as db
 import sensor_readings as sens
+import fasteners
+
+lock = fasteners.InterProcessLock('/tmp/sensor.lock')
 
 app = Flask(__name__)
 
@@ -63,7 +66,8 @@ def set_state():
 
 @app.route("/manual_update")
 def manual_update():
-    sens.init_sens()
+    with lock:
+            sens.init_sens()
     return redirect("/")
 
 if __name__ == '__main__':
