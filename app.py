@@ -1,3 +1,5 @@
+#!/home/admin/PlantMonitor/venv/bin/python3
+
 import sqlite3
 import threading
 from flask import Flask, render_template, request, redirect
