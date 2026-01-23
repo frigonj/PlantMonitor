@@ -31,9 +31,9 @@ def index():
     print(f"SENSOR DATA: {sensor_data}")
 
     temp = sensor_data[0]
-    temp = round(temp, 1)
+    temp = round(long(temp), 1)
     hum = sensor_data[1]
-    hum = round(hum, 1)
+    hum = round(long(hum), 1)
     
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"temp": temp, "hum": hum, "soil": 45} 
