@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timedelta
 
-DB_FILE = "../db/plant_monitor.db"
+DB_FILE = "/home/admin/db/plant_monitor.db"
 
 def init_db():
     """Initializes the database schema."""
