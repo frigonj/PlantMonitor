@@ -63,7 +63,7 @@ def set_state():
 @app.route("/manual_update")
 def manual_update():
     sens.init_sens()
-    return redirect(url_for("index"))
+    return redirect("/")
 
 if __name__ == '__main__':
     db.init_db()
