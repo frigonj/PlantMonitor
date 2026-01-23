@@ -63,8 +63,7 @@ def set_state():
 
 @app.route("/")
 def manual_update():
-    with lock:
-            sens.init_sens()
+    sens.init_sens()
     return redirect("/")
 
 if __name__ == '__main__':
