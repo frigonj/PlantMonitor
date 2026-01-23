@@ -41,6 +41,12 @@ def add_reading(temp, hum, soil_moisture):
                      (datetime.now(), temp, hum, soil_moisture))
         conn.commit()
 
+def get_reading()
+    """Gets the most recent readings available"""
+    with sqlite3.connect(DB_FILE) as conn:
+        result = conn.execute("SELECT temp, humidity, soil_moisture FROM readings ORDER BY timestamp DESC LIMIT 1")
+        return result if result else "No Recent reading was found"
+
 def cleanup_old_data():
     """Drops readings older than 120 days to save space."""
     cutoff = datetime.now() - timedelta(days=120)

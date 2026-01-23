@@ -61,5 +61,7 @@ def set_state():
 
 if __name__ == '__main__':
     db.init_db()
-    sens.init_sens()
+    db.get_reading()
     app.run(host='0.0.0.0', port=5000)
+    sens.init_sens()
+    
