@@ -13,8 +13,8 @@ def init_sens():
     print("Pulling Initial sensor Readings...", flush=True)
     temperatures = []
     humidities = []
-    for i in range (11):
-        print(f"Percent complete: {round(i/11,2)*100}%", end='\r', flush=True)
+    target_samples = 10
+    while len(temperatures) < target_samples
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
@@ -22,10 +22,11 @@ def init_sens():
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
                 humidities.append(humidity)
-                i+=1
+                percent=(len(temperatures)/target_samples*100)
+                print(f"Percent complete: {percent:.1f}%", end="\r", flush=True)
         except: 
             pass
-        time.sleep(.1)
+        time.sleep(.2)
     avg_temp = sum(temperatures) / len(temperatures)
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
