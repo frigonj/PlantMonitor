@@ -10,10 +10,11 @@ dht = adafruit_dht.DHT11(board.D4)
 
 
 def init_sens():
-    print("Pulling Initial sensor Readings...")
+    print("Pulling Initial sensor Readings...", flush=True)
     temperatures = []
     humidities = []
     for i in range (11):
+        print(f"Percent complete: {i/11}%", flush=True)
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
