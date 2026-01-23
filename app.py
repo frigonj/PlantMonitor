@@ -1,4 +1,5 @@
 import sqlite3
+import threading
 from flask import Flask, render_template, request, redirect
 import db_utilities as db
 import sensor_readings as sens
@@ -31,9 +32,9 @@ def index():
     print(f"SENSOR DATA: {sensor_data}")
 
     temp = sensor_data[0]
-    temp = round(long(temp), 1)
+    temp = round(float(temp), 1)
     hum = sensor_data[1]
-    hum = round(long(hum), 1)
+    hum = round(float(hum), 1)
     
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"temp": temp, "hum": hum, "soil": 45} 
@@ -62,6 +63,7 @@ def set_state():
 if __name__ == '__main__':
     db.init_db()
     db.get_reading()
+    threading.Thread(target=sens.init_sens(), daemon=True).start()
     app.run(host='0.0.0.0', port=5000)
-    sens.init_sens()
+    
     
