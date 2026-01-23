@@ -35,7 +35,7 @@ def get_temp_hum():
     temperatures = []
     humidities = []
     for i in range (11):
-        print(f"Percent complete: {i/11}%", end='')       
+        print(f"Percent complete: {i/11}%")       
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity

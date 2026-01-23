@@ -26,9 +26,9 @@ def get_color(val, target_range):
 @app.route('/')
 def index():
     current_state = db.get_current_state()
-    print("*****current_state***** " + str(current_state[0]))
     targets = STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
+    print(f"SENSOR DATA: {sensor_data}")
 
     temp = sensor_data[0]
     temp = round(temp, 1)
