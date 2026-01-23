@@ -61,7 +61,7 @@ def set_state():
     db.update_plant_state(request.form['plant_state'])
     return redirect('/')
 
-@app.route("/manual_update")
+@app.route("/")
 def manual_update():
     sens.init_sens()
     return redirect("/")
