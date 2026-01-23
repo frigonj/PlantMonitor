@@ -62,7 +62,7 @@ def set_state():
 
 @app.route("/manual_update")
 def manual_update():
-    temp, hum = sens.init_sens()
+    sens.init_sens()
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
