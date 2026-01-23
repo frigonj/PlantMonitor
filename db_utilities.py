@@ -44,7 +44,7 @@ def add_reading(temp, hum, soil_moisture):
 def get_reading():
     """Gets the most recent readings available"""
     with sqlite3.connect(DB_FILE) as conn:
-        result = conn.execute("SELECT * FROM readings ORDER BY timestamp DESC LIMIT 1")
+        result = conn.execute("SELECT value FROM readings ORDER BY timestamp DESC LIMIT 1").fetchone()
         return result if result else "No Recent reading was found"
 
 def cleanup_old_data():

@@ -10,7 +10,7 @@ dht = adafruit_dht.DHT11(board.D4)
 
 
 def init_sens():
-    print("Pulling sensor Readings...")
+    print("Pulling Initial sensor Readings...")
     temperatures = []
     humidities = []
     for i in range (11):
