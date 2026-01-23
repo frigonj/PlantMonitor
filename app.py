@@ -60,10 +60,15 @@ def set_state():
     db.update_plant_state(request.form['plant_state'])
     return redirect('/')
 
+@app.route("/manual_update")
+def manual_update():
+    temp, hum = sens.init_sens()
+    return redirect(url_for("index"))
+
 if __name__ == '__main__':
     db.init_db()
     db.get_reading()
-    threading.Thread(target=sens.init_sens(), daemon=True).start()
+    threading.Thread(target=sens.init_sens, daemon=True).start()
     app.run(host='0.0.0.0', port=5000)
     
     
