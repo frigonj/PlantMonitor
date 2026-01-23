@@ -33,8 +33,8 @@ def init_sens():
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
     print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")\
-finally: 
-    dht.exit()
+    finally: 
+        dht.exit()
 
 def get_temp_hum(): 
     print("Pulling sensor Readings...")
@@ -58,8 +58,9 @@ def get_temp_hum():
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
     print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
+    finally: 
+        dht.exit()
     return {"temperature":avg_temp, "humidity":avg_hum}
-finally: 
-    dht.exit()
+        
 # TODO: Add in soil moisture to this.
 
