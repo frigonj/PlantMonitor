@@ -14,7 +14,7 @@ def init_sens():
     temperatures = []
     humidities = []
     for i in range (11):
-        print(f"Percent complete: {i/11}%", end='', flush=True)
+        print(f"Percent complete: {round(i/11,2)}%", end='\r', flush=True)
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
