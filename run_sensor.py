@@ -1,6 +1,6 @@
 #!/home/admin/PlantMonitor/venv/bin/python3
 
-from sens import init_sens
+import sensor_readings as sens
 
 if __name__ == "__main__":
-    init_sens()
+    sens.init_sens()
