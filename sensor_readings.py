@@ -22,13 +22,10 @@ def init_sens():
                 temperature_f = (temperature_c * 9 / 5) + 32
                 temperatures.append(temperature_f)
                 humidities.append(humidity)
-                print(f"Temperatures: {temperatures}  Humidity {humidities}%")
-
                 i+=1
         except: 
             pass
         time.sleep(.1)
-    print(f"Temperatures: {temperatures}  Humidity {humidities}%")
     avg_temp = sum(temperatures) / len(temperatures)
     avg_hum = sum(humidities) / len(humidities)
     db.add_reading(avg_temp, avg_hum, 55)
