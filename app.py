@@ -31,9 +31,9 @@ def index():
     sensor_data = db.get_reading()
     print(f"SENSOR DATA: {sensor_data}")
 
-    temp = sensor_data[0]
+    temp = sensor_data[2]
     temp = round(float(temp), 1)
-    hum = sensor_data[1]
+    hum = sensor_data[3]
     hum = round(float(hum), 1)
     
     # # Example 'actual' readings (Replace with real sensor calls)
