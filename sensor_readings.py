@@ -10,7 +10,7 @@ import soil_moisture as sm
 dht = adafruit_dht.DHT11(board.D4)
 
 def init_sens():
-    print("Pulling Initial sensor Readings...", flush=True)
+    print("Pulling sensor Readings...", flush=True)
     temperatures = []
     humidities = []
     target_samples = 10
