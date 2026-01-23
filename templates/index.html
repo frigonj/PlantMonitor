@@ -18,9 +18,11 @@
         </select>
     </form>
     <!-- Update button -->
-    <a href="/manual_update">
-      <button>Update Sensor</button>
-    </a>
+    <div>
+        <a href="/manual_update">
+          <button>Update Sensor</button>
+        </a>
+    </div>
     <!-- Status Widgets -->
     <div class="row g-3">
         <div class="col-md-4">
@@ -34,7 +36,7 @@
         </div>
     <div class="row g-3">
         <div class="col-md-4">
-            <div class="card text-white bg-{{ temp_color }}">
+            <div class="card text-white bg-{{ hum_color }}">
                 <div class="card-body">
                     <h5 class="card-title">Humidity</h5>
                     <p class="display-6">{{ actual.hum }}%</p>
@@ -44,7 +46,7 @@
         </div>
     <div class="row g-3">
         <div class="col-md-4">
-            <div class="card text-white bg-{{ temp_color }}">
+            <div class="card text-white bg-{{ soil_color }}">
                 <div class="card-body">
                     <h5 class="card-title">Soil Moisture</h5>
                     <p class="display-6">{{ actual.soil }}%</p>

@@ -29,7 +29,6 @@ def index():
     current_state = db.get_current_state()
     targets = STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
-    print(f"SENSOR DATA: {sensor_data}")
 
     temp = sensor_data[2]
     temp = round(float(temp), 1)
