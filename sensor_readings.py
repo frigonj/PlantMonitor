@@ -14,7 +14,7 @@ def init_sens():
     temperatures = []
     humidities = []
     target_samples = 10
-    while len(temperatures) < target_samples
+    while len(temperatures) < target_samples:
         try:
             temperature_c = dht.temperature
             humidity = dht.humidity
