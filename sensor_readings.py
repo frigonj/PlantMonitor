@@ -16,51 +16,26 @@ def init_sens():
     temperatures = []
     humidities = []
     target_samples = 10
-    while len(temperatures) < target_samples:
-        try:
-            temperature_c = dht.temperature
-            humidity = dht.humidity
-            if temperature_c is not None and humidity is not None:
-                temperature_f = (temperature_c * 9 / 5) + 32
-                temperatures.append(temperature_f)
-                humidities.append(humidity)
-                percent=(len(temperatures)/target_samples*100)
-                print(f"Percent complete: {percent:.1f}%", end="\r", flush=True)
-        except: 
-            pass
-        time.sleep(.2)
-    avg_temp = sum(temperatures) / len(temperatures)
-    avg_hum = sum(humidities) / len(humidities)
-    db.add_reading(avg_temp, avg_hum, 55)
-    print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")\
+    try:
+        while len(temperatures) < target_samples:
+            try:
+                temperature_c = dht.temperature
+                humidity = dht.humidity
+                if temperature_c is not None and humidity is not None:
+                    temperature_f = (temperature_c * 9 / 5) + 32
+                    temperatures.append(temperature_f)
+                    humidities.append(humidity)
+                    percent=(len(temperatures)/target_samples*100)
+                    print(f"Percent complete: {percent:.1f}%", end="\r", flush=True)
+            except: 
+                pass
+            time.sleep(.2)
+        avg_temp = sum(temperatures) / len(temperatures)
+        avg_hum = sum(humidities) / len(humidities)
+        db.add_reading(avg_temp, avg_hum, 55)
+        print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
     finally: 
         dht.exit()
 
-def get_temp_hum(): 
-    print("Pulling sensor Readings...")
-    temperatures = []
-    humidities = []
-    for i in range (11):
-        print(f"Percent complete: {i/11}%")       
-        try:
-            temperature_c = dht.temperature
-            humidity = dht.humidity
-            if temperature_c is not None and humidity is not None:
-                temperature_f = (temperature_c * 9 / 5) + 32
-                temperatures.append(temperature_f)
-                humidities.append(humidity) 
-                i+=1
-        except:
-            pass
-        time.sleep(.1)
-
-    avg_temp = sum(temperatures) / len(temperatures)
-    avg_hum = sum(humidities) / len(humidities)
-    db.add_reading(avg_temp, avg_hum, 55)
-    print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
-    finally: 
-        dht.exit()
-    return {"temperature":avg_temp, "humidity":avg_hum}
-        
 # TODO: Add in soil moisture to this.
 
