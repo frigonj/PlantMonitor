@@ -40,7 +40,7 @@ def init_sens():
         avg_temp = sum(temperatures) / len(temperatures)
         avg_hum = sum(humidities) / len(humidities)
         db.add_reading(avg_temp, avg_hum, 55)
-        print(f"{datetime.now().strftime("%B %d, %Y %I:%M:%S %p")}: Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
+        print(f"{datetime.now().strftime("%B %d, %Y %I:%M:%S %p")}: Temperature: {avg_temp:.1f}°F  Humidity: {avg_hum}%")
     finally: 
         dht.exit()
 
