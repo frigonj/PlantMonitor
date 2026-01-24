@@ -73,8 +73,8 @@ def manual_update():
             sens.init_sens()
     return redirect("/")
 
-@app.route("/api/readings")
-def api_readings():
+@app.route("/api/history")
+def history():
     range_map = {
         "60m": 60,
         "6h": 360,
@@ -83,29 +83,25 @@ def api_readings():
         "7d": 10080
     }
 
-    selected = request.args.get("range", "60m")
-    minutes = range_map.get(selected, 60)
+    period = request.args.get("range", "24h")
+    minutes = range_map.get(period, 1440)
 
     rows = db.get_readings_range(minutes)
 
-    data = {
-        "timestamps": [],
-        "temp": [],
-        "hum": [],
-        "soil": []
-    }
+    timestamps = []
+    temps = []
+    hums = []
+    soils = []
 
-    for r in rows:
-        data["timestamps"].append(r["timestamp"])
-        data["temp"].append(r["temp"])
-        data["hum"].append(r["hum"])
-        data["soil"].append(r["soil_moisture"])
+    for row in rows:
+        timestamps.append(row["timestamp"])
+        temps.append(row["temp"])
+        hums.append(row["hum"])
+        soils.append(row["soil_moisture"])
 
-    return jsonify(data)
-
-if __name__ == '__main__':
-    db.init_db()
-    db.get_reading()
-    app.run(host='0.0.0.0', port=5000)
-    
-    
+    return jsonify({
+        "timestamps": timestamps,
+        "temperature": temps,
+        "humidity": hums,
+        "soil": soils
+    })
