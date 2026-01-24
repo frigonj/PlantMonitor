@@ -35,13 +35,14 @@ def index():
     targets = STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
 
+    time = sensor_data[0]
     temp = sensor_data[2]
     temp = round(float(temp), 1)
     hum = sensor_data[3]
     hum = round(float(hum), 1)
     
     # # Example 'actual' readings (Replace with real sensor calls)
-    actual = {"temp": temp, "hum": hum, "soil": 45} 
+    actual = {"time": time, "temp": temp, "hum": hum, "soil": 45} 
     
     # Evaluate Fan Logic [4]
     fan_needed = False
