@@ -35,7 +35,7 @@ def index():
     targets = STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
 
-    time = sensor_data[1]
+    time = sensor_data[1].strftime("%m/%d/%Y %H:%M:%S")
     temp = sensor_data[2]
     temp = round(float(temp), 1)
     hum = sensor_data[3]
