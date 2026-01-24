@@ -54,3 +54,19 @@ def cleanup_old_data():
         conn.execute("DELETE FROM readings WHERE timestamp < ?", (cutoff,))
         conn.commit()
 
+def get_readings_range(minutes):
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT timestamp, temp, hum, soil_moisture
+        FROM readings
+        WHERE timestamp >= datetime('now', ?)
+        ORDER BY timestamp ASC
+    """, (f"-{minutes} minutes",))
+
+    rows = cur.fetchall()
+    conn.close()
+
+    return rows
