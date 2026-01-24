@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Plant Monitor</title>
 </head>
 <body class="bg-light">
@@ -74,5 +77,6 @@
         <canvas id="soilChart"></canvas>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
 </html>
