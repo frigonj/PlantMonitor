@@ -5,6 +5,7 @@ import board
 import adafruit_dht
 import db_utilities as db
 import soil_moisture as sm
+from datetime import datetime, timedelta
 
 # Initialize DHT11 sensor on GPIO4 (physical pin 7)
 def safe_init_dht():
@@ -17,7 +18,7 @@ def safe_init_dht():
             time.sleep(2)
 
 def init_sens():
-    print("Pulling sensor Readings...", flush=True)
+    print("Init Sens...", flush=True)
     temperatures = []
     humidities = []
     target_samples = 10
@@ -39,7 +40,7 @@ def init_sens():
         avg_temp = sum(temperatures) / len(temperatures)
         avg_hum = sum(humidities) / len(humidities)
         db.add_reading(avg_temp, avg_hum, 55)
-        print(f"Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
+        print(f"{datetime.now().strftime("%A, %B %d, %Y %I:%M:%S %p")}: Average Temperatures: {avg_temp:.1f}°F  Average Humidity {avg_hum}%")
     finally: 
         dht.exit()
 
