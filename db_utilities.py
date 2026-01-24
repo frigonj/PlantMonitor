@@ -53,3 +53,4 @@ def cleanup_old_data():
     with sqlite3.connect(DB_FILE) as conn:
         conn.execute("DELETE FROM readings WHERE timestamp < ?", (cutoff,))
         conn.commit()
+
