@@ -22,12 +22,12 @@
             <!-- Update button -->
             <div>
                 <a href="/manual_update">
-                <button>Update Sensor</button>
+                    <button>Update Sensor</button>
                 </a>
                 <br>
             </div>
             <div>
-                <p class="display 5"><b>Recent Reading:</b> {{actual.time}} </p>
+                <p class="display 5"> <b>Recent Reading:</b> {{actual.time}} </p>
             </div>
             <!-- Range Selector -->
             <select id="rangeSelect" onchange="loadCharts()">
@@ -37,63 +37,62 @@
                 <option value="24h" selected>Last 24 Hours</option>
                 <option value="7d">Last 7 Days</option>
             </select>
-            <!-- Status Widgets -->
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card text-white bg-{{ temp_color }}">
-                        <div class="card-body">
-                            <h5 class="card-title">Temperature</h5>
-                            <p class="display-6">{{ actual.temp }}°F</p>
-                            <small>Target Min: {{targets.temp[0]}}°F <br> Target Max: {{targets.temp[1]}}°F</small>
-                        </div>
-                    </div>
-                    <!-- Chart Card -->
-                    <div class="col-12 col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <canvas id="tempChart"></canvas>
-                            </div>
-                        </div>
+            <!-- Status Card -->
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-{{ temp_color }}">
+                    <div class="card-body">
+                        <h5 class="card-title">Temperature</h5>
+                        <p class="display-6">{{ actual.temp }}°F</p>
+                        <small>
+                        Target Min: {{ targets.temp[0] }}°F<br>
+                        Target Max: {{ targets.temp[1] }}°F
+                        </small>
                     </div>
                 </div>
             </div>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card text-white bg-{{ hum_color }}">
-                        <div class="card-body">
-                            <h5 class="card-title">Humidity</h5>
-                            <p class="display-6">{{ actual.hum }}%</p>
-                            <small>Target Min: {{targets.hum[0]}}% <br> Target Max: {{targets.hum[1]}}%</small>
-                        </div>
-                    </div>
-                    <!-- Chart Card -->
-                    <div class="col-12 col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <canvas id="humChart"></canvas>
-                            </div>
-                        </div>
+            <!-- Chart Card -->
+            <div class="col-12 col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="tempChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card text-white bg-{{ soil_color }}">
-                        <div class="card-body">
-                            <h5 class="card-title">Soil Moisture</h5>
-                            <p class="display-6">{{ actual.soil }}%</p>
-                            <small>Target Min: {{targets.soil[0]}}% <br>  Target Max: {{targets.soil[1]}}%</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <canvas id="soilChart"></canvas>
-                        </div>
+        </div>
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-{{ hum_color }}">
+                    <div class="card-body">
+                        <h5 class="card-title">Humidity</h5>
+                        <p class="display-6">{{ actual.hum }}%</p>
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="humChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-{{ soil_color }}">
+                    <div class="card-body">
+                        <h5 class="card-title">Soil Moisture</h5>
+                        <p class="display-6">{{ actual.soil }}%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="soilChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
         <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
     </body>
