@@ -37,7 +37,7 @@ def index():
     sensor_data = db.get_reading()
     print(repr(sensor_data[1]))
     dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
-    time = dt.strftime("%B %d, %Y %I:%M:%S %p")
+    time = dt.strftime("%m/%d/%Y %I:%M:%S %p")
     temp = sensor_data[2]
     temp = round(float(temp), 1)
     hum = sensor_data[3]
