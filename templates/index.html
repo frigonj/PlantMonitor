@@ -22,7 +22,7 @@
             <!-- Update button -->
             <div>
                 <a href="/manual_update">
-                    <button>Update Sensor</button>
+                <button>Update Sensor</button>
                 </a>
                 <br>
             </div>
@@ -58,37 +58,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row g-3 mb-3">
-            <div class="col-12 col-md-4">
-                <div class="card text-white bg-{{ hum_color }}">
-                    <div class="card-body">
-                        <h5 class="card-title">Humidity</h5>
-                        <p class="display-6">{{ actual.hum }}%</p>
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-md-4">
+                    <div class="card text-white bg-{{ hum_color }}">
+                        <div class="card-body">
+                            <h5 class="card-title">Humidity</h5>
+                            <p class="display-6">{{ actual.hum }}%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="humChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <canvas id="humChart"></canvas>
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-md-4">
+                    <div class="card text-white bg-{{ soil_color }}">
+                        <div class="card-body">
+                            <h5 class="card-title">Soil Moisture</h5>
+                            <p class="display-6">{{ actual.soil }}%</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row g-3 mb-3">
-            <div class="col-12 col-md-4">
-                <div class="card text-white bg-{{ soil_color }}">
-                    <div class="card-body">
-                        <h5 class="card-title">Soil Moisture</h5>
-                        <p class="display-6">{{ actual.soil }}%</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <canvas id="soilChart"></canvas>
+                <div class="col-12 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="soilChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
