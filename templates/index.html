@@ -38,7 +38,7 @@
                 <option value="7d">Last 7 Days</option>
             </select>
             <!-- Status Card -->
-            <div class="col-12 col-md-8">
+            <div class="col-8 col-md-8">
                 <div class="card text-white bg-{{ temp_color }}">
                     <div class="card-body">
                         <h5 class="card-title">Temperature</h5>
@@ -50,16 +50,17 @@
                     </div>
                 </div>
                 <!-- Chart Card -->
-                <div class="col-12 col-md-8">
+                <div class="col-8 col-md-8">
                     <div class="card">
                         <div class="card-body">
+                            <h6 class="text-muted">Last 24 Hours</h6>
                             <canvas id="tempChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-12 col-md-8">
+                <div class="col-8 col-md-8">
                     <div class="card text-white bg-{{ hum_color }}">
                         <div class="card-body">
                             <h5 class="card-title">Humidity</h5>
@@ -71,16 +72,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-8 col-md-8">
                     <div class="card">
                         <div class="card-body">
+                            <h6 class="text-muted">Last 24 Hours</h6>
                             <canvas id="humChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-12 col-md-8">
+                <div class="col-8 col-md-8">
                     <div class="card text-white bg-{{ soil_color }}">
                         <div class="card-body">
                             <h5 class="card-title">Soil Moisture</h5>
@@ -92,9 +94,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-8">
+                <div class="col-8 col-md-8">
                     <div class="card">
                         <div class="card-body">
+                            <h6 class="text-muted">Last {{rangeselect.value()}} Hours</h6>
                             <canvas id="soilChart"></canvas>
                         </div>
                     </div>
