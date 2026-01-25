@@ -38,7 +38,7 @@
                 <option value="7d">Last 7 Days</option>
             </select>
             <!-- Status Card -->
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-8">
                 <div class="card text-white bg-{{ temp_color }}">
                     <div class="card-body">
                         <h5 class="card-title">Temperature</h5>
@@ -49,17 +49,17 @@
                         </small>
                     </div>
                 </div>
-            </div>
-            <!-- Chart Card -->
-            <div class="col-12 col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <canvas id="tempChart"></canvas>
+                <!-- Chart Card -->
+                <div class="col-12 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="tempChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-8">
                     <div class="card text-white bg-{{ hum_color }}">
                         <div class="card-body">
                             <h5 class="card-title">Humidity</h5>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-8">
                     <div class="card text-white bg-{{ soil_color }}">
                         <div class="card-body">
                             <h5 class="card-title">Soil Moisture</h5>
