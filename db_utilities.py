@@ -55,7 +55,7 @@ def cleanup_old_data():
         conn.commit()
 
 def get_readings_range(minutes):
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
