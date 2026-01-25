@@ -49,6 +49,8 @@
                     <small>Target Min: {{targets.temp[0]}}°F <br> Target Max: {{targets.temp[1]}}°F</small>
                 </div>
             </div>
+                    <canvas id="tempChart"></canvas>
+
         </div>
     <div class="row g-3">
         <div class="col-md-4">
@@ -59,6 +61,8 @@
                     <small>Target Min: {{targets.hum[0]}}% <br> Target Max: {{targets.hum[1]}}%</small>
                 </div>
             </div>
+                    <canvas id="humChart"></canvas>
+
         </div>
     <div class="row g-3">
         <div class="col-md-4">
@@ -70,11 +74,10 @@
                 </div>
             </div>
         </div>
+                <canvas id="soilChart"></canvas>
+
     </div>
     <div class="chart-row">
-        <canvas id="tempChart"></canvas>
-        <canvas id="humChart"></canvas>
-        <canvas id="soilChart"></canvas>
     </div>
 </div>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
