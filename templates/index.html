@@ -44,8 +44,8 @@
                         <h5 class="card-title">Temperature</h5>
                         <p class="display-6">{{ actual.temp }}°F</p>
                         <small>
-                        Target Min: {{ targets.temp[0] }}°F<br>
-                        Target Max: {{ targets.temp[1] }}°F
+                            Target Min: {{ targets.temp[0] }}°F<br>
+                            Target Max: {{ targets.temp[1] }}°F
                         </small>
                     </div>
                 </div>
@@ -64,6 +64,10 @@
                         <div class="card-body">
                             <h5 class="card-title">Humidity</h5>
                             <p class="display-6">{{ actual.hum }}%</p>
+                            <small>
+                            Target Min: {{ targets.hum[0] }}%<br>
+                            Target Max: {{ targets.hum[1] }}%
+                        </small>
                         </div>
                     </div>
                 </div>
@@ -81,6 +85,10 @@
                         <div class="card-body">
                             <h5 class="card-title">Soil Moisture</h5>
                             <p class="display-6">{{ actual.soil }}%</p>
+                            <small>
+                            Target Min: {{ targets.soil[0] }}%<br>
+                            Target Max: {{ targets.soil[1] }}%
+                        </small>
                         </div>
                     </div>
                 </div>
