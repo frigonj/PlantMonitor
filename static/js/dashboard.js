@@ -1,9 +1,7 @@
 let tempChart, humChart, soilChart;
 
 function loadCharts() {
-
     const range = document.getElementById("rangeSelect").value;
-
     fetch(`/api/history?range=${range}`)
     .then(res => res.json())
     .then(data => {
@@ -19,11 +17,11 @@ function loadCharts() {
         tempChart = createChart("tempChart", labels, data.temperature, "Temperature °F");
         humChart = createChart("humChart", labels, data.humidity, "Humidity %");
         soilChart = createChart("soilChart", labels, data.soil, "Soil Moisture");
+        updateRangeLabel();
     });
 }
 
 function createChart(canvasId, labels, values, label) {
-
     return new Chart(document.getElementById(canvasId), {
         type: "line",
         data: {
@@ -44,6 +42,12 @@ function createChart(canvasId, labels, values, label) {
             }
         }
     });
+}
+
+function updateRangeLabel() {
+    const select = document.getElementById("rangeSelect");
+    const label = select.options[select.selectedIndex].text;
+    document.getElementById("chartRangeLabel").textContent = label;
 }
 
 window.onload = loadCharts;
