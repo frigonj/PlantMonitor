@@ -12,6 +12,9 @@ lock = fasteners.InterProcessLock('/tmp/sensor.lock')
 
 app = Flask(__name__)
 
+# Fan device IP - update this with your actual device IP
+FAN_DEVICE_IP = "192.168.1.100"  # Replace with your smart plug IP
+
 # Target mapping based on sources [1-3]
 STATE_TARGETS = {
     "Seedling": { "temp": (70, 85), "hum": (70, 80), "soil": (65, 70)},
@@ -46,12 +49,12 @@ def index():
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"time": time, "temp": temp, "hum": hum, "soil": 45} 
     
-    # Evaluate Fan Logic [4]
-    fan_needed = False
-    # if actual['temp'] > targets['temp'][1]: # actual_temp > max_target_temp
-    #     fan_needed = True
-    # elif actual['hum'] > targets['hum'][1] and (actual['temp'] - targets['temp'][1] > 5):
-    #     fan_needed = True
+    try:
+        fan_status = fan.get_fan_status(FAN_DEVICE_IP)
+        fan_status_text = "ON" if fan_status else "OFF"
+    except:
+        fan_status_text = "ERROR"
+    
 
     return render_template('index.html', 
                state=current_state[0],
@@ -60,7 +63,7 @@ def index():
                temp_color=get_color(actual['temp'], targets['temp']),
                hum_color=get_color(actual['hum'], targets['hum']),
                soil_color=get_color(actual['soil'], targets['soil']),
-               fan_status="ON" if fan_needed else "OFF")
+               fan_status=fan_status_text)
 
 @app.route('/set_state', methods=['POST'])
 def set_state():
@@ -72,6 +75,18 @@ def manual_update():
     with lock:
             sens.init_sens()
     return redirect("/")
+
+@app.route('/fan/toggle', methods=['POST'])
+def toggle_fan():
+    try:
+        current_status = fan.get_fan_status(FAN_DEVICE_IP)
+        if current_status:
+            fan.turn_fan_off(FAN_DEVICE_IP)
+        else:
+            fan.turn_fan_on(FAN_DEVICE_IP)
+    except Exception as e:
+        print(f"Fan control error: {e}")
+    return redirect('/')
 
 @app.route("/api/history")
 def history():

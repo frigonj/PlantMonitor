@@ -27,6 +27,13 @@
                 <button>Update Sensor</button> 
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- Fan Control -->
+            <form action="/fan/toggle" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-{% if fan_status == 'ON' %}success{% else %}secondary{% endif %}">
+                    Fan: {{ fan_status }}
+                </button>
+            </form>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <!-- Range Selector -->
             <select id="rangeSelect" onchange="loadCharts()">
                 <option value="60m">Last 60 Minutes</option>
