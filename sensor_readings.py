@@ -36,7 +36,7 @@ def init_sens():
                     print(f"Percent complete: {percent:.1f}%", end="\r", flush=True)
             except: 
                 pass
-            time.sleep(.4)
+            time.sleep(.2)
         avg_temp = sum(temperatures) / len(temperatures)
         avg_hum = sum(humidities) / len(humidities)
         db.add_reading(avg_temp, avg_hum, 55)

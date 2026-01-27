@@ -6,6 +6,7 @@ import db_utilities as db
 import sensor_readings as sens
 import fasteners
 from datetime import datetime, timedelta
+import fan_automation
 import fan_controller as fan
 from flask import Flask, render_template, request, redirect, jsonify, request
 
@@ -15,6 +16,8 @@ app = Flask(__name__)
 
 # Fan device IP - update this with your actual device IP
 FAN_DEVICE_IP = "192.168.50.11"  # Replace with your smart plug IP
+# Start fan automation
+fan_automation.start_automation(FAN_DEVICE_IP)
 
 # Target mapping based on sources [1-3]
 STATE_TARGETS = {
