@@ -53,8 +53,9 @@ def index():
     try:
         fan_status = fan.get_fan_status(FAN_DEVICE_IP)
         fan_status_text = "ON" if fan_status else "OFF"
-    except:
+    except Exception as e:
         fan_status_text = "ERROR"
+        print(f"Error getting fan status: {e}")
     
 
     return render_template('index.html', 
