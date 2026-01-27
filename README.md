@@ -33,17 +33,17 @@ NOTE: This is currently in a state to be run on a local network only. Hardware u
    ```
 
 
-3. Configure hardware
-    - Connect DHT11 sensor to GPIO pin 4
-    - Set up Kasa smart plug on your network
-    - Update config.py with your smart plug IP address
+3. **Configure hardware:**
+   - Connect DHT11 sensor to GPIO pin 4
+   - Set up Kasa smart plug on your network
+   - Update config.py with your smart plug IP address
 
-4. Initialize database
-    ```bash 
-    python -c "from database import db_utilities; db_utilities.init_db()"
-    ```
+4. **Initialize database:**
+   ```bash 
+   python -c "from database import db_utilities; db_utilities.init_db()"
+   ```
 
-**Configuration**
+## Configuration
 Edit `config.py` to customize:
 
 - **FAN_DEVICE_IP**: Your Kasa smart plug IP address
@@ -53,16 +53,21 @@ Edit `config.py` to customize:
 ## Usage
 
 ### Development Mode (from venv)
-    ```bash
-    source /venv/bin/activate
-    python app.py
-    ```
+```bash
+source /venv/bin/activate
+python app.py
+```
 
 ### Production mode
+```bash
 nohup python -u app.py &
-Access the web interface at http://localhost:5000
+```
+
+Access the web interface at `http://localhost:5000`
 
 ## Project Structure
+
+```
 PlantMonitor/
 ├── app.py                    # Main Flask application
 ├── config.py                 # Configuration settings
@@ -78,41 +83,42 @@ PlantMonitor/
 ├── static/                   # Web assets (CSS, JS)
 ├── templates/                # HTML templates
 └── scripts/                  # Utility scripts
+```
 
 ## Automation Logic
 
 ### Fan Control 
-- Turn ON: When temp/humidity exceeds maximum thresholds (with minimum safety buffer)
-- Turn OFF: When readings drop 4° below max temp AND 4% below max humidity (with minimum safety buffer)
-- Check Frequency: 30 seconds when fan is on, 5 minutes when off
+- **Turn ON**: When temp/humidity exceeds maximum thresholds (with minimum safety buffer)
+- **Turn OFF**: When readings drop 4° below max temp AND 4% below max humidity (with minimum safety buffer)
+- **Check Frequency**: 30 seconds when fan is on, 5 minutes when off
 
 ### Growth Stages
 Each stage has optimized temperature and humidity ranges:
-Seedling: 70-85°F, 70-80% humidity
-Vegetation: 70-85°F, 55-70% humidity
-Flowering: 65-80°F, 40-60% humidity
-Late Flowering: 65-80°F, 40-60% humidity
+- **Seedling**: 70-85°F, 70-80% humidity
+- **Vegetation**: 70-85°F, 55-70% humidity
+- **Flowering**: 65-80°F, 40-60% humidity
+- **Late Flowering**: 65-80°F, 40-60% humidity
 
-### API Endpoints
-GET / - Main dashboard
-POST /set_state - Change plant growth stage
-GET /manual_update - Trigger manual sensor reading
-POST /fan/toggle - Manual fan control
-GET /api/history?range=24h - Historical sensor data
+## API Endpoints
+- `GET /` - Main dashboard
+- `POST /set_state` - Change plant growth stage
+- `GET /manual_update` - Trigger manual sensor reading
+- `POST /fan/toggle` - Manual fan control
+- `GET /api/history?range=24h` - Historical sensor data
 
-### Dependencies
-Flask - Web framework
-python-kasa - Smart plug control
-- For kasa, you will also need cryptography and tzone
-adafruit-dht - DHT11 sensor interface
-fasteners - File locking for sensor access
-sqlite3 - Database storage
+## Dependencies
+- Flask - Web framework
+- python-kasa - Smart plug control
+  - For kasa, you will also need cryptography and tzdata
+- adafruit-dht - DHT11 sensor interface
+- fasteners - File locking for sensor access
+- sqlite3 - Database storage
 
-### License
+## License
 MIT License
 
-### Contributing
-Fork the repository
-Create a feature branch
-Make your changes
-Submit a pull request
+## Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
