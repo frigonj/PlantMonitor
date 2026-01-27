@@ -13,7 +13,7 @@ lock = fasteners.InterProcessLock('/tmp/sensor.lock')
 app = Flask(__name__)
 
 # Fan device IP - update this with your actual device IP
-FAN_DEVICE_IP = "192.168.1.100"  # Replace with your smart plug IP
+FAN_DEVICE_IP = "192.168.50.11"  # Replace with your smart plug IP
 
 # Target mapping based on sources [1-3]
 STATE_TARGETS = {
