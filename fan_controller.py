@@ -1,5 +1,7 @@
-import asyncio
+import asyncioimport os
 from kasa import SmartPlug
+
+os.environ['TZ'] = 'UTC'
 
 class FanController:
     def __init__(self, device_ip):
