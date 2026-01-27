@@ -35,13 +35,13 @@
                 <option value="24h" selected>Last 24 Hours</option>
                 <option value="7d">Last 7 Days</option>
             </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <!-- Fan Control -->
             <form action="/fan/toggle" method="post" style="display: inline;">
                 <button type="submit" class="btn btn-{% if fan_status == 'ON' %}success{% else %}secondary{% endif %}">
                     Fan: {{ fan_status }}
                 </button>
             </form>
-            &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <div>
             <p class="display 5"> <b>Recent Reading:</b> {{actual.time}} </p>
