@@ -35,7 +35,6 @@ def index():
     current_state = db.get_current_state()
     targets = config.STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
-    print(repr(sensor_data[1]))
     dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
     time = dt.strftime("%m/%d/%Y %I:%M:%S %p")
     temp = sensor_data[2]
