@@ -18,7 +18,7 @@ def safe_init_dht():
             time.sleep(2)
 
 def init_sens():
-    print("Init Sens...", flush=True)
+    print("Reading Sensor...", flush=True)
     temperatures = []
     humidities = []
     target_samples = 10

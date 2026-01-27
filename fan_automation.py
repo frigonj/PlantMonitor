@@ -53,7 +53,14 @@ class FanAutomation:
             except Exception as e:
                 print(f"Fan automation error: {e}")
             
-            time.sleep(60)
+            # Dynamic sleep based on fan status
+            try:
+                current_fan_status = fan.get_fan_status(self.device_ip)
+                sleep_time = 60 if current_fan_status else 300  # 1 min if on, 5 min if off
+            except:
+                sleep_time = 60  # Default to 1 minute if can't get status
+            
+            time.sleep(sleep_time)
     
     def start(self):
         if not self.running:
