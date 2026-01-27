@@ -1,8 +1,6 @@
 import asyncio
 import os
 from kasa import SmartPlug
-import kasa.protocol
-kasa.protocol.TPLinkSmartHomeProtocol._handle_response_error = lambda self, response: None
 
 class FanController:
     def __init__(self, device_ip):
