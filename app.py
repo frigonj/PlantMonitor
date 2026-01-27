@@ -3,7 +3,6 @@
 import sqlite3
 import threading
 import fasteners
-import config
 from datetime import datetime, timedelta
 from controllers import fan_controller as fan
 from automation import fan_automation
