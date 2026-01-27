@@ -3,6 +3,7 @@
 import sqlite3
 import threading
 import fasteners
+import config
 from datetime import datetime, timedelta
 from controllers import fan_controller as fan
 from automation import fan_automation
@@ -15,7 +16,7 @@ lock = fasteners.InterProcessLock('/tmp/sensor.lock')
 app = Flask(__name__)
 
 # Fan device IP - update this with your actual device IP
-FAN_DEVICE_IP = "192.168.50.11"  # Replace with your smart plug IP
+FAN_DEVICE_IP = config.FAN_DEVICE_IP  # Replace with your smart plug IP
 # Start fan automation
 fan_automation.start_automation(FAN_DEVICE_IP)
 
