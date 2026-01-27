@@ -20,7 +20,9 @@ class FanAutomation:
         }
     
     def should_turn_on_fan(self, temp, hum, targets):
-        return temp > targets["temp"][1] or hum > targets["hum"][1]
+        temp_high = temp > targets["temp"][1] and temp >= (targets["temp"][0] + 2)
+        hum_high = hum > targets["hum"][1] and hum >= (targets["hum"][0] + 2)
+        return temp_high or hum_high
     
     def should_turn_off_fan(self, temp, hum, targets):
         temp_ok = temp <= (targets["temp"][1] - 4) and temp >= (targets["temp"][0] + 2)
