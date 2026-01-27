@@ -3,6 +3,7 @@
 import sqlite3
 import threading
 import fasteners
+import config
 from datetime import datetime, timedelta
 from controllers import fan_controller as fan
 from automation import fan_automation
@@ -19,14 +20,6 @@ FAN_DEVICE_IP = "192.168.50.11"  # Replace with your smart plug IP
 # Start fan automation
 fan_automation.start_automation(FAN_DEVICE_IP)
 
-# Target mapping based on sources [1-3]
-STATE_TARGETS = {
-    "Seedling": { "temp": (70, 85), "hum": (70, 80), "soil": (65, 70)},
-    "Vegetation": { "temp": (70, 85), "hum": (55, 70), "soil": (40, 70)},
-    "Flowering": { "temp": (65, 80), "hum": (40, 60), "soil": (40, 50)},
-    "Late Flowering": { "temp": (65, 80), "hum": (40, 60), "soil": (30, 40)}
-}
-
 def get_color(val, target_range):
     """Logic: Green = target, Yellow = +/- 2, Red = outside [3]."""
     t_min, t_max = target_range
@@ -40,7 +33,7 @@ def get_color(val, target_range):
 @app.route('/')
 def index():
     current_state = db.get_current_state()
-    targets = STATE_TARGETS[current_state[0]]
+    targets = config.STATE_TARGETS[current_state[0]]
     sensor_data = db.get_reading()
     print(repr(sensor_data[1]))
     dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
@@ -129,4 +122,4 @@ def history():
 if __name__ == '__main__':
     db.init_db()
     db.get_reading()
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host=config.FLASK_HOST, port=config.FLASK_PORT)
