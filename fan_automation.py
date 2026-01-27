@@ -56,9 +56,9 @@ class FanAutomation:
             # Dynamic sleep based on fan status
             try:
                 current_fan_status = fan.get_fan_status(self.device_ip)
-                sleep_time = 60 if current_fan_status else 300  # 1 min if on, 5 min if off
+                sleep_time = 30 if current_fan_status else 300  # 30sec if on, 5 min if off
             except:
-                sleep_time = 60  # Default to 1 minute if can't get status
+                sleep_time = 30  # Default to 30 sec if can't get status
             
             time.sleep(sleep_time)
     
