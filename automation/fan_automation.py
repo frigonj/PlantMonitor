@@ -2,9 +2,9 @@ import threading
 import time
 import fasteners
 import config
-import database.db_utilities as db
-import sensors.sensor_readings as sens
-import fan_controller as fan
+from database import db_utilities as db
+from sensors import sensor_readings as sens
+from controllers import fan_controller as fan
 
 
 class FanAutomation:

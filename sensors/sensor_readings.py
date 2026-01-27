@@ -5,7 +5,7 @@ import board
 import config
 import adafruit_dht
 import database.db_utilities as db
-import scripts.soil_moisture as sm
+from sensors import soil_moisture as sm
 from datetime import datetime, timedelta
 
 # Initialize DHT11 sensor on GPIO4 (physical pin 7)
