@@ -17,23 +17,17 @@
         <form action="/set_state" method="post" class="mb-4">
             <select name="plant_state" onchange="this.form.submit()" class="form-select">
                 {% for s in ["Seedling", "Vegetation", "Flowering", "Late Flowering"] %}
-                <option value="{{ s }}" {% if s == state %}selected{% endif %}>{{ s }}</option>
+                <option value="{{ s }}" {% if s==state %}selected{% endif %}>{{ s }}</option>
                 {% endfor %}
-                </select>
+            </select>
         </form>
         <!-- Update button -->
         <div>
             <a href="/manual_update">
-                <button>Update Sensor</button> 
+                <button>Update Sensor</button>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <!-- Fan Control -->
-            <form action="/fan/toggle" method="post" style="display: inline;">
-                <button type="submit" class="btn btn-{% if fan_status == 'ON' %}success{% else %}secondary{% endif %}">
-                    Fan: {{ fan_status }}
-                </button>
-            </form>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+
             <!-- Range Selector -->
             <select id="rangeSelect" onchange="loadCharts()">
                 <option value="60m">Last 60 Minutes</option>
@@ -44,6 +38,13 @@
             </select>
             <br>
         </div>
+        <!-- Fan Control -->
+        <form action="/fan/toggle" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-{% if fan_status == 'ON' %}success{% else %}secondary{% endif %}">
+                Fan: {{ fan_status }}
+            </button>
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <div>
             <p class="display 5"> <b>Recent Reading:</b> {{actual.time}} </p>
         </div>

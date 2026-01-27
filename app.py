@@ -6,6 +6,7 @@ import db_utilities as db
 import sensor_readings as sens
 import fasteners
 from datetime import datetime, timedelta
+import fan_controller as fan
 from flask import Flask, render_template, request, redirect, jsonify, request
 
 lock = fasteners.InterProcessLock('/tmp/sensor.lock')
