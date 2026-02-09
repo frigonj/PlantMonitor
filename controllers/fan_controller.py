@@ -1,33 +1,38 @@
 import asyncio
-import os
 from kasa import SmartPlug
 
-class FanController:
-    def __init__(self, device_ip):
-        self.device_ip = device_ip
-        self.device = SmartPlug(device_ip)
-    
-    async def turn_on(self):
-        await self.device.update()
-        await self.device.turn_on()
-    
-    async def turn_off(self):
-        await self.device.update()
-        await self.device.turn_off()
-    
-    async def get_status(self):
-        await self.device.update()
-        return self.device.is_on
+async def _turn_on(device_ip):
+    device = SmartPlug(device_ip)
+    await device.update()
+    await device.turn_on()
 
-# Synchronous wrapper functions for Flask
+async def _turn_off(device_ip):
+    device = SmartPlug(device_ip)
+    await device.update()
+    await device.turn_off()
+
+async def _get_status(device_ip):
+    device = SmartPlug(device_ip)
+    await device.update()
+    return device.is_on
+
 def turn_fan_on(device_ip):
-    controller = FanController(device_ip)
-    return asyncio.run(controller.turn_on())
+    try:
+        asyncio.run(_turn_on(device_ip))
+    except Exception as e:
+        print(f"Error turning fan on: {e}")
+        raise
 
 def turn_fan_off(device_ip):
-    controller = FanController(device_ip)
-    return asyncio.run(controller.turn_off())
+    try:
+        asyncio.run(_turn_off(device_ip))
+    except Exception as e:
+        print(f"Error turning fan off: {e}")
+        raise
 
 def get_fan_status(device_ip):
-    controller = FanController(device_ip)
-    return asyncio.run(controller.get_status())
+    try:
+        return asyncio.run(_get_status(device_ip))
+    except Exception as e:
+        print(f"Error getting fan status: {e}")
+        raise
