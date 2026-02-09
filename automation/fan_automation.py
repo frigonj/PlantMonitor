@@ -20,9 +20,9 @@ class FanAutomation:
         return temp_high or hum_high
     
     def should_turn_off_fan(self, temp, hum, targets):
-        temp_ok = temp <= (targets["temp"][1] - 4) and temp >= (targets["temp"][0] + 2)
-        hum_ok = hum <= (targets["hum"][1] - 4) and hum >= (targets["hum"][0] + 2)
-        return temp_ok and hum_ok
+        temp_ok = temp <= (targets["temp"][1] - 4)
+        hum_ok = hum <= (targets["hum"][1] - 4)
+        return temp_ok or hum_ok
     
     def control_loop(self):
         while self.running:
