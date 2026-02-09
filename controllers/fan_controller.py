@@ -1,4 +1,5 @@
 import asyncio
+import time
 from kasa import SmartPlug
 
 async def _turn_on(device_ip):
@@ -16,23 +17,23 @@ async def _get_status(device_ip):
     await device.update()
     return device.is_on
 
+def _retry (func, device_ip, retries=5):
+    for attempt in range(retries):
+        try:
+            return asyncio.run(func(device_ip))
+        except Exception as e:
+            if attempt == retries -1:
+                print(f"Failed after {retries} attempts: {e}")
+                raise
+            print(f"Attempt {attempt+1} failed: {e}, retrying...")
+            time.sleep(.5 ** attempt)  # Exponential backoff
+    raise Exception(f"All {retries} attempts failed")
+
 def turn_fan_on(device_ip):
-    try:
-        asyncio.run(_turn_on(device_ip))
-    except Exception as e:
-        print(f"Error turning fan on: {e}")
-        raise
+    _retry(_turn_on, device_ip)
 
 def turn_fan_off(device_ip):
-    try:
-        asyncio.run(_turn_off(device_ip))
-    except Exception as e:
-        print(f"Error turning fan off: {e}")
-        raise
+    _retry(_turn_off, device_ip)
 
 def get_fan_status(device_ip):
-    try:
-        return asyncio.run(_get_status(device_ip))
-    except Exception as e:
-        print(f"Error getting fan status: {e}")
-        raise
+    return _retry(_get_status, device_ip)
