@@ -15,11 +15,13 @@ class FanAutomation:
         self.lock = fasteners.InterProcessLock('/tmp/sensor.lock')
     
     def should_turn_on_fan(self, temp, hum, targets):
+        print(f"Fan ON - Temp: {temp}°F, Hum: {hum}%")
         temp_high = temp > targets["temp"][1] and temp >= (targets["temp"][0] + 2)
         hum_high = hum > targets["hum"][1] and hum >= (targets["hum"][0] + 2)
-        return temp_high or hum_high
+        return temp_high and hum_high
     
     def should_turn_off_fan(self, temp, hum, targets):
+        print(f"Fan OFF - Temp: {temp}°F, Hum: {hum}%")
         temp_ok = temp <= (targets["temp"][1] - 4)
         hum_ok = hum <= (targets["hum"][1] - 4)
         return temp_ok or hum_ok
