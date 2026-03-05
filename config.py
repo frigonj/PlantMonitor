@@ -19,8 +19,3 @@ FLASK_PORT = 5000
 # Automation Timing
 #FAN_ON_CHECK_INTERVAL = 30    # seconds
 #FAN_OFF_CHECK_INTERVAL = 300  # seconds
-
-# Fan Control Thresholds
-#FAN_TEMP_BUFFER = 4  # degrees below max to turn off
-#FAN_HUM_BUFFER = 4   # percent below max to turn off
-#FAN_MIN_BUFFER = 2   # buffer above minimum before turning on/off
