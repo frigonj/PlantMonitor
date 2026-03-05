@@ -15,17 +15,17 @@ class FanAutomation:
         self.lock = fasteners.InterProcessLock('/tmp/sensor.lock')
     
     def should_turn_on_fan(self, temp, hum, targets):
-        print(f"Fan ON - Temp: {temp}°F, Hum: {hum}%")
         temp_exceeds_max = temp > targets["temp"][1]
         hum_exceeds_max = hum > targets["hum"][1]
-        temp_above_min = temp >= (targets["temp"][0] + 2)
-        hum_above_min = hum >= (targets["hum"][0] + 2)
+        temp_above_min = temp >= (targets["temp"][0])
+        hum_above_min = hum >= (targets["hum"][0])
+        print(f"CHECK FAN_ON: T={temp}°F (max={targets['temp'][1]}, min={targets['temp'][0]}) H={hum}% (max={targets['hum'][1]}, min={targets['hum'][0]}) | T_exceeds={temp_exceeds_max} H_exceeds={hum_exceeds_max} T_above_min={temp_above_min} H_above_min={hum_above_min}")
         return (temp_exceeds_max and hum_above_min) or (hum_exceeds_max and temp_above_min)
     
     def should_turn_off_fan(self, temp, hum, targets):
-        print(f"Fan OFF - Temp: {temp}°F, Hum: {hum}%")
-        temp_ok = temp <= (targets["temp"][1] - 4)
-        hum_ok = hum <= (targets["hum"][1] - 4)
+        print(f"CHECK FAN_OFF: T={temp}°F (max={targets['temp'][1]}, min={targets['temp'][0]}) H={hum}% (max={targets['hum'][1]}, min={targets['hum'][0]}) | T_ok={temp <= targets['temp'][1] - 4} H_ok={hum <= targets['hum'][1] - 4}")
+        temp_ok = temp <= (targets["temp"][1])
+        hum_ok = hum <= (targets["hum"][1])
         return temp_ok or hum_ok
     
     def control_loop(self):
