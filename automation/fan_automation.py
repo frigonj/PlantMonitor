@@ -16,9 +16,11 @@ class FanAutomation:
     
     def should_turn_on_fan(self, temp, hum, targets):
         print(f"Fan ON - Temp: {temp}°F, Hum: {hum}%")
-        temp_high = temp > targets["temp"][1] and temp >= (targets["temp"][0] + 2)
-        hum_high = hum > targets["hum"][1] and hum >= (targets["hum"][0] + 2)
-        return temp_high and hum_high
+        temp_exceeds_max = temp > targets["temp"][1]
+        hum_exceeds_max = hum > targets["hum"][1]
+        temp_above_min = temp >= (targets["temp"][0] + 2)
+        hum_above_min = hum >= (targets["hum"][0] + 2)
+        return (temp_exceeds_max and hum_above_min) or (hum_exceeds_max and temp_above_min)
     
     def should_turn_off_fan(self, temp, hum, targets):
         print(f"Fan OFF - Temp: {temp}°F, Hum: {hum}%")
