@@ -24,7 +24,7 @@ class FanAutomation:
         if temp_exceeds_max and hum_above_min:
             return "temp"
         if hum_exceeds_max and temp_above_min:
-            self.fan_on_reason = "hum"
+            return "hum"
         return None
     
     def should_turn_off_fan(self, temp, hum, targets):
