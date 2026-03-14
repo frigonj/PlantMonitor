@@ -56,10 +56,12 @@ class FanAutomation:
                 if not fan_status:
                     reason = self.should_turn_on_fan(temp, hum, targets)
                     if reason:
+                        print(f"Turning on fan due to {reason} threshold breach.")
                         self.fan_on_reason = reason
                         fan.turn_fan_on(self.device_ip)
                         print(f"Fan ON ({reason}) - Temp: {temp}°F, Hum: {hum}%")
                 elif fan_status and self.should_turn_off_fan(temp, hum, targets):
+                    print("Turning off fan - conditions back in range.")
                     fan.turn_fan_off(self.device_ip)
                     self.fan_on_reason = None
                     print(f"Fan OFF - Temp: {temp}°F, Hum: {hum}%")
