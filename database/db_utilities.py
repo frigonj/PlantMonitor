@@ -48,8 +48,8 @@ def get_reading():
         return result if result else "No Recent reading was found"
 
 def cleanup_old_data():
-    """Drops readings older than 120 days to save space."""
-    cutoff = datetime.now() - timedelta(days=120)
+    """Drops readings older than 30 days to save space."""
+    cutoff = datetime.now() - timedelta(days=30)
     with sqlite3.connect(DB_FILE) as conn:
         conn.execute("DELETE FROM readings WHERE timestamp < ?", (cutoff,))
         conn.commit()
