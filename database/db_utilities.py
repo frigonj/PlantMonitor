@@ -62,7 +62,7 @@ def get_readings_range(minutes):
     cur.execute("""
         SELECT timestamp, temp, hum, soil_moisture
         FROM readings
-        WHERE timestamp >= datetime('now', ?)
+        WHERE timestamp >= datetime('now', 'localtime', ?)
         ORDER BY timestamp ASC
     """, (f"-{minutes} minutes",))
 
