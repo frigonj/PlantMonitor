@@ -38,7 +38,7 @@ def add_reading(temp, hum, soil_moisture):
     """Logs new sensor data with a timestamp."""
     with sqlite3.connect(DB_FILE) as conn:
         conn.execute("INSERT INTO readings (timestamp, temp, hum, soil_moisture) VALUES (?, ?, ?, ?)",
-                     (datetime.now(), temp, hum, soil_moisture))
+                     (datetime.utcnow(), temp, hum, soil_moisture))
         conn.commit()
 
 def get_reading():
@@ -62,7 +62,7 @@ def get_readings_range(minutes):
     cur.execute("""
         SELECT timestamp, temp, hum, soil_moisture
         FROM readings
-        WHERE timestamp >= datetime('now', 'localtime', ?)
+        WHERE timestamp >= datetime('now', ?)
         ORDER BY timestamp ASC
     """, (f"-{minutes} minutes",))
 

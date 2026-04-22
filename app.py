@@ -4,7 +4,7 @@ import sqlite3
 import threading
 import fasteners
 import config
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from controllers import fan_controller as fan
 from automation import fan_automation
 from database import db_utilities as db
@@ -37,7 +37,7 @@ def index():
     targets = config.STATE_TARGETS[state_name]
     sensor_data = db.get_reading()
     if sensor_data:
-        dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
+        dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f").replace(tzinfo=timezone.utc).astimezone()
         time = dt.strftime("%m/%d/%Y %I:%M:%S %p")
         temp = round(float(sensor_data[2]), 1)
         hum = round(float(sensor_data[3]), 1)

@@ -11,7 +11,6 @@ function loadCharts() {
             const labels = data.timestamps.map(t => {
                 const date = new Date(t + ' UTC');
                 return date.toLocaleTimeString('en-US', {
-                    timeZone: 'America/New_York',
                     hour: 'numeric',
                     minute: '2-digit'
                 });
