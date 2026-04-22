@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Plant Monitor</title>
 </head>
 
@@ -14,42 +13,37 @@
     <div class="container mt-4">
         <h2>Plant State: {{ state }}</h2>
         <!-- State Dropdown -->
-        <form action="/set_state" method="post" class="mb-4">
+        <form action="/set_state" method="post" class="mb-3">
             <select name="plant_state" onchange="this.form.submit()" class="form-select">
                 {% for s in ["Seedling", "Vegetation", "Flowering", "Late Flowering"] %}
                 <option value="{{ s }}" {% if s==state %}selected{% endif %}>{{ s }}</option>
                 {% endfor %}
             </select>
         </form>
-        <!-- Update button -->
-        <div>
+        <!-- Controls -->
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
             <a href="/manual_update">
-                <button>Update Sensor</button>
+                <button class="btn btn-outline-secondary">Update Sensor</button>
             </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <!-- Range Selector -->
-            <select id="rangeSelect" onchange="loadCharts()">
+            <select id="rangeSelect" onchange="loadCharts()" class="form-select w-auto">
                 <option value="60m">Last 60 Minutes</option>
                 <option value="6h">Last 6 Hours</option>
                 <option value="12h">Last 12 Hours</option>
                 <option value="24h" selected>Last 24 Hours</option>
                 <option value="7d">Last 7 Days</option>
             </select>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <!-- Fan Control -->
-            <form action="/fan/toggle" method="post" style="display: inline;">
+            <form action="/fan/toggle" method="post">
                 <button type="submit" class="btn btn-{% if fan_status == 'ON' %}success{% else %}secondary{% endif %}">
                     Fan: {{ fan_status }}
                 </button>
             </form>
         </div>
-        <div>
-            <p class="display 5"> <b>Recent Reading:</b> {{actual.time}} </p>
-        </div>
-        <!-- Status Card -->
+        <p class="display-5 fs-6 mb-3"><b>Recent Reading:</b> {{actual.time}}</p>
+
+        <!-- Temperature -->
         <div class="row g-3 mb-3">
-            <div class="col-3 col-md-3">
-                <div class="card text-white bg-{{ temp_color }}">
+            <div class="col-12 col-md-3">
+                <div class="card text-white bg-{{ temp_color }} h-100">
                     <div class="card-body">
                         <h5 class="card-title">Temperature</h5>
                         <p class="display-6">{{ actual.temp }}°F</p>
@@ -60,22 +54,20 @@
                     </div>
                 </div>
             </div>
-            <!-- Chart Card -->
-            <div class="col-6 col-md-6">
-                <div class="card">
+            <div class="col-12 col-md-9">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="text-muted">
-                            <span id="chartRangeLabel">Last 24 Hours</span>
-                        </h6>
+                        <h6 class="text-muted"><span class="chartRangeLabel">Last 24 Hours</span></h6>
                         <canvas id="tempChart"></canvas>
                     </div>
                 </div>
             </div>
-
         </div>
+
+        <!-- Humidity -->
         <div class="row g-3 mb-3">
-            <div class="col-3 col-md-3">
-                <div class="card text-white bg-{{ hum_color }}">
+            <div class="col-12 col-md-3">
+                <div class="card text-white bg-{{ hum_color }} h-100">
                     <div class="card-body">
                         <h5 class="card-title">Humidity</h5>
                         <p class="display-6">{{ actual.hum }}%</p>
@@ -86,20 +78,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-6">
-                <div class="card">
+            <div class="col-12 col-md-9">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="text-muted">
-                            <span id="chartRangeLabel">Last 24 Hours</span>
-                        </h6>
+                        <h6 class="text-muted"><span class="chartRangeLabel">Last 24 Hours</span></h6>
                         <canvas id="humChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Soil Moisture -->
         <div class="row g-3 mb-3">
-            <div class="col-3 col-md-3">
-                <div class="card text-white bg-{{ soil_color }}">
+            <div class="col-12 col-md-3">
+                <div class="card text-white bg-{{ soil_color }} h-100">
                     <div class="card-body">
                         <h5 class="card-title">Soil Moisture</h5>
                         <p class="display-6">{{ actual.soil }}%</p>
@@ -110,12 +102,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-6">
-                <div class="card">
+            <div class="col-12 col-md-9">
+                <div class="card h-100">
                     <div class="card-body">
-                        <h6 class="text-muted">
-                            <span id="chartRangeLabel">Last 24 Hours</span>
-                        </h6>
+                        <h6 class="text-muted"><span class="chartRangeLabel">Last 24 Hours</span></h6>
                         <canvas id="soilChart"></canvas>
                     </div>
                 </div>

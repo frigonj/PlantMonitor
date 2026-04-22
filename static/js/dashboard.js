@@ -55,7 +55,7 @@ function createChart(canvasId, labels, values, label) {
 function updateRangeLabel() {
     const select = document.getElementById("rangeSelect");
     const label = select.options[select.selectedIndex].text;
-    document.getElementById("chartRangeLabel").textContent = label;
+    document.querySelectorAll(".chartRangeLabel").forEach(el => el.textContent = label);
 }
 
 window.onload = loadCharts;
