@@ -1,0 +1,16 @@
+[Unit]
+Description=Plant Monitor
+After=network.target
+
+[Service]
+Type=simple
+User=admin
+WorkingDirectory=/home/admin/PlantMonitor
+ExecStart=/home/admin/PlantMonitor/venv/bin/python3 /home/admin/PlantMonitor/app.py
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
