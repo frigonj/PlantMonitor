@@ -42,10 +42,21 @@ class FanAutomation:
     def control_loop(self):
         while self.running:
             try:
-                with self.lock:
-                    sens.init_sens()
+                if self.lock.acquire(timeout=10):
+                    try:
+                        sens.init_sens()
+                    finally:
+                        self.lock.release()
+                else:
+                    print("Fan automation: could not acquire sensor lock within 10s, skipping cycle.")
+                    time.sleep(30)
+                    continue
                 current_state = db.get_current_state()
                 sensor_data = db.get_reading()
+                if not current_state or not sensor_data:
+                    print("Fan automation: no state or sensor data yet, skipping cycle.")
+                    time.sleep(30)
+                    continue
                 temp = float(sensor_data[2])
                 hum = float(sensor_data[3])
                 targets = config.STATE_TARGETS[current_state[0]]

@@ -9,7 +9,7 @@ from controllers import fan_controller as fan
 from automation import fan_automation
 from database import db_utilities as db
 from sensors import sensor_readings as sens
-from flask import Flask, render_template, request, redirect, jsonify, request
+from flask import Flask, render_template, request, redirect, jsonify
 
 lock = fasteners.InterProcessLock('/tmp/sensor.lock')
 
@@ -33,14 +33,18 @@ def get_color(val, target_range):
 @app.route('/')
 def index():
     current_state = db.get_current_state()
-    targets = config.STATE_TARGETS[current_state[0]]
+    state_name = current_state[0] if current_state else "Seedling"
+    targets = config.STATE_TARGETS[state_name]
     sensor_data = db.get_reading()
-    dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
-    time = dt.strftime("%m/%d/%Y %I:%M:%S %p")
-    temp = sensor_data[2]
-    temp = round(float(temp), 1)
-    hum = sensor_data[3]
-    hum = round(float(hum), 1)
+    if sensor_data:
+        dt = datetime.strptime(sensor_data[1], "%Y-%m-%d %H:%M:%S.%f")
+        time = dt.strftime("%m/%d/%Y %I:%M:%S %p")
+        temp = round(float(sensor_data[2]), 1)
+        hum = round(float(sensor_data[3]), 1)
+    else:
+        time = "No data"
+        temp = 0.0
+        hum = 0.0
     
     # # Example 'actual' readings (Replace with real sensor calls)
     actual = {"time": time, "temp": temp, "hum": hum, "soil": 45} 
@@ -53,8 +57,8 @@ def index():
         print(f"Error getting fan status: {e}")
     
 
-    return render_template('index.html', 
-               state=current_state[0],
+    return render_template('index.html',
+               state=state_name,
                actual=actual,
                targets=targets,
                temp_color=get_color(actual['temp'], targets['temp']),
@@ -64,13 +68,20 @@ def index():
 
 @app.route('/set_state', methods=['POST'])
 def set_state():
-    db.update_plant_state(request.form['plant_state'])
+    new_state = request.form.get('plant_state')
+    if new_state in config.STATE_TARGETS:
+        db.update_plant_state(new_state)
     return redirect('/')
 
 @app.route("/manual_update")
 def manual_update():
-    with lock:
+    if lock.acquire(timeout=10):
+        try:
             sens.init_sens()
+        finally:
+            lock.release()
+    else:
+        print("manual_update: could not acquire sensor lock within 10s, skipping.")
     return redirect("/")
 
 @app.route('/fan/toggle', methods=['POST'])

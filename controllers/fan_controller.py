@@ -26,7 +26,7 @@ def _retry (func, device_ip, retries=5):
                 print(f"Failed after {retries} attempts: {e}")
                 raise
             print(f"Attempt {attempt+1} failed: {e}, retrying...")
-            time.sleep(.5 ** attempt)  # Exponential backoff
+            time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s, 8s...
     raise Exception(f"All {retries} attempts failed")
 
 def turn_fan_on(device_ip):

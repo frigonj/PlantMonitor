@@ -32,7 +32,7 @@ def get_current_state():
     """Retrieves the saved plant state."""
     with sqlite3.connect(DB_FILE) as conn:
         result = conn.execute("SELECT value FROM settings WHERE key = 'plant_state'").fetchone()
-        return result if result else "No Result was found"
+        return result if result else None
 
 def add_reading(temp, hum, soil_moisture):
     """Logs new sensor data with a timestamp."""
@@ -45,7 +45,7 @@ def get_reading():
     """Gets the most recent readings available"""
     with sqlite3.connect(DB_FILE) as conn:
         result = conn.execute("SELECT * FROM readings ORDER BY timestamp DESC LIMIT 1").fetchone()
-        return result if result else "No Recent reading was found"
+        return result if result else None
 
 def cleanup_old_data():
     """Drops readings older than 30 days to save space."""
