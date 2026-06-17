@@ -90,11 +90,14 @@ def toggle_fan():
         current_status = fan.get_fan_status(FAN_DEVICE_IP)
         if current_status:
             fan.turn_fan_off(FAN_DEVICE_IP)
+            new_status = False
         else:
             fan.turn_fan_on(FAN_DEVICE_IP)
+            new_status = True
+        return jsonify({"fan_on": new_status})
     except Exception as e:
         print(f"Fan control error: {e}")
-    return redirect('/')
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/api/history")
 def history():
