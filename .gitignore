@@ -1,2 +1,3 @@
 plant_monitor.db
 __pycache__/
+.claude/settings.local.json

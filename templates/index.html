@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <title>Plant Monitor</title>
@@ -111,6 +111,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
     <script>
         function toggleFan() {
@@ -119,11 +120,33 @@
             fetch('/fan/toggle', { method: 'POST' })
                 .then(r => r.json())
                 .then(data => {
+                    if (data.error) {
+                        console.error('Fan toggle failed:', data.error);
+                        btn.textContent = 'Fan: Error';
+                        btn.className = 'btn btn-danger';
+                        setTimeout(() => {
+                            btn.textContent = btn.dataset.last || 'Fan: ?';
+                            btn.className = btn.dataset.lastClass || 'btn btn-secondary';
+                        }, 3000);
+                        return;
+                    }
                     const on = data.fan_on;
-                    btn.textContent = 'Fan: ' + (on ? 'ON' : 'OFF');
-                    btn.className = 'btn ' + (on ? 'btn-success' : 'btn-secondary');
+                    const text = 'Fan: ' + (on ? 'ON' : 'OFF');
+                    const cls = 'btn ' + (on ? 'btn-success' : 'btn-secondary');
+                    btn.textContent = text;
+                    btn.className = cls;
+                    btn.dataset.last = text;
+                    btn.dataset.lastClass = cls;
                 })
-                .catch(() => {})
+                .catch(err => {
+                    console.error('Fan toggle request failed:', err);
+                    btn.textContent = 'Fan: Error';
+                    btn.className = 'btn btn-danger';
+                    setTimeout(() => {
+                        btn.textContent = btn.dataset.last || 'Fan: ?';
+                        btn.className = btn.dataset.lastClass || 'btn btn-secondary';
+                    }, 3000);
+                })
                 .finally(() => { btn.disabled = false; });
         }
     </script>

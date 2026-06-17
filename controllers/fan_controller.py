@@ -17,16 +17,16 @@ async def _get_status(device_ip):
     await device.update()
     return device.is_on
 
-def _retry (func, device_ip, retries=5):
+def _retry(func, device_ip, retries=2):
     for attempt in range(retries):
         try:
             return asyncio.run(func(device_ip))
         except Exception as e:
-            if attempt == retries -1:
+            if attempt == retries - 1:
                 print(f"Failed after {retries} attempts: {e}")
                 raise
-            print(f"Attempt {attempt+1} failed: {e}, retrying...")
-            time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s, 8s...
+            print(f"Attempt {attempt + 1} failed: {e}, retrying...")
+            time.sleep(2 ** attempt)  # 1s between attempts
     raise Exception(f"All {retries} attempts failed")
 
 def turn_fan_on(device_ip):

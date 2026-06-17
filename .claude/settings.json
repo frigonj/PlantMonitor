@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(bash scripts/release.sh)"
+    ],
+    "deny": [
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(ssh *)",
+      "Bash(scp *)"
+    ]
+  }
+}
