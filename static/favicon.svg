@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Cannabis leaf favicon -->
+  <g fill="#2d7a2d" transform="translate(50,55)">
+    <!-- Center stem -->
+    <rect x="-1.5" y="-5" width="3" height="22" rx="1.5"/>
+    <!-- Main center blade -->
+    <ellipse cx="0" cy="-28" rx="6" ry="26" transform="rotate(0)"/>
+    <!-- Left-center blade -->
+    <ellipse cx="0" cy="-22" rx="5.5" ry="22" transform="rotate(-28)"/>
+    <!-- Right-center blade -->
+    <ellipse cx="0" cy="-22" rx="5.5" ry="22" transform="rotate(28)"/>
+    <!-- Left blade -->
+    <ellipse cx="0" cy="-18" rx="5" ry="18" transform="rotate(-52)"/>
+    <!-- Right blade -->
+    <ellipse cx="0" cy="-18" rx="5" ry="18" transform="rotate(52)"/>
+    <!-- Far-left blade -->
+    <ellipse cx="0" cy="-14" rx="4" ry="14" transform="rotate(-76)"/>
+    <!-- Far-right blade -->
+    <ellipse cx="0" cy="-14" rx="4" ry="14" transform="rotate(76)"/>
+  </g>
+</svg>
